@@ -148,6 +148,27 @@ Shader "Custom/Demo"
                 return reflect(ecView, ecNormal);
             }
 
+            // Function for noise generation
+            float2 Hash(float2 p)
+            {
+                p = float2(dot(p, float2(127.1, 311.7)), dot(p, float2(269.5, 183.3)));
+                return -1.0 + 2.0 * frac(sin(p) * 43758.5453123);
+            }
+
+            float Noise(float2 p)
+            {
+                float2 i = floor(p);
+                float2 f = frac(p);
+
+                float2 u = f * f * (3.0 - 2.0 * f);
+
+                return lerp(
+                    lerp(dot(Hash(i + float2(0.0, 0.0)), f - float2(0.0, 0.0)),
+                         dot(Hash(i + float2(1.0, 0.0)), f - float2(1.0, 0.0)), u.x),
+                    lerp(dot(Hash(i + float2(0.0, 1.0)), f - float2(0.0, 1.0)),
+                         dot(Hash(i + float2(1.0, 1.0)), f - float2(1.0, 1.0)), u.x), u.y);
+            }
+
             // Función para calcular las olas
             float CalculateWaveHeight(float4 position, float2 waveDirection, float waveLength, float waveAmplitude, float waveSpeed)
             {
@@ -162,13 +183,15 @@ Shader "Custom/Demo"
                 {
                     frequency *= freq_mult;
                     waveAmplitude *= ampli_mult;
-                    waveHeight += waveAmplitude  * sin(d * frequency + _Time * phase);
+                    waveHeight += waveAmplitude * (exp(waveAmplitude  * sin(d * frequency + _Time * phase)) - 1);
                     freq_mult *= 1.18;
                     ampli_mult *= 0.82;
+                    waveDirection = Noise(frequency);
                 }
                 
                 return waveHeight;
             }
+            
 
             // Función para calcular las derivadas de las olas
             float3 CalculateWaveDerivative(float4 position, float2 waveDirection, float waveLength, float waveAmplitude, float waveSpeed)
@@ -184,15 +207,33 @@ Shader "Custom/Demo"
                 {
                     frequency *= freq_mult;
                     waveAmplitude *= ampli_mult;
-                    waveDerivative.x += frequency * waveAmplitude * waveDirection.x * cos(d * frequency + _Time * phase);
-                    waveDerivative.y += frequency * waveAmplitude * waveDirection.y * cos(d * frequency + _Time * phase);
+                    waveDerivative.x += frequency * waveAmplitude * (exp(sin(d * frequency + _Time * phase)) - 1) * waveDirection.x * cos(d * frequency + _Time * phase);
+                    waveDerivative.y += frequency * waveAmplitude * (exp(sin(d * frequency + _Time * phase)) - 1) * waveDirection.y * cos(d * frequency + _Time * phase);
                     freq_mult *= 1.18;
                     ampli_mult *= 0.82;
+                    waveDirection = Noise(frequency );
                 }
 
                 
                 return float3(waveDerivative.x, waveDerivative.y, 0);
             }
+
+            // // Function for FBM generation
+            // float FBM(float2 p)
+            // {
+            //     float value = 0.0;
+            //     float amplitude = 0.5;
+            //     float frequency = 1.0;
+
+            //     for (int i = 0; i < _subWaves; ++i)
+            //     {
+            //         value += amplitude * Noise(p * frequency);
+            //         frequency *= 1.12;
+            //         amplitude *= 0.88;
+            //     }
+
+            //     return value;
+            // }
 
             v2f vert(MeshData IN)
             {
@@ -240,8 +281,6 @@ Shader "Custom/Demo"
                 half4 fresnelColor = lerp(texCUBE(_EnviroTexCube, IN.vRefract), texCUBE(_EnviroTexCube, IN.vReflect), IN.vFresnel);
                 half4 Phong = CalculatePhongLight(IN.normal, normalize(IN.vRefract - _WorldSpaceCameraPos), IN.uv);
                 return lerp(Phong, fresnelColor, _EnviroIntensity);
-                //return half4(dot(normalize(_LightDir), normalize(IN.normal)) * _Intensity * _Diffuse.rgb, 1);
-                // return half4(normalize(IN.normal), 1);
             }
 
             ENDHLSL
