@@ -114,7 +114,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
-    - _EnviroIntensity: 0.07
+    - _EnviroIntensity: 0.12
     - _EnvironmentReflections: 1
     - _FBMAmplitude: 1
     - _FBMLayers: 56
@@ -149,14 +149,14 @@ Material:
     - _Value: 1
     - _WorkflowMode: 1
     - _ZWrite: 1
-    - _refractRatio: 1
-    - _subWaves: 1
+    - _refractRatio: 1.65
+    - _subWaves: 32.31
     - _waveAmplitude: 1.12
     - _waveAmplitude2: 1.57
     - _waveAmplitude3: 0.71
     - _waveAmplitude4: 0.52
     - _waveHeight: 1
-    - _waveLength: 16.63
+    - _waveLength: 16.67
     - _waveLength2: 16.3
     - _waveLength3: 16.37
     - _waveLength4: 6.5
@@ -173,7 +173,7 @@ Material:
     - _LightColor: {r: 0.990566, g: 0.9823282, b: 0.91019934, a: 1}
     - _LightDir: {r: -0.52, g: 0.96, b: 0.24, a: 1}
     - _SpecColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Specular: {r: 1, g: 0.96712494, b: 0.68301886, a: 1}
+    - _Specular: {r: 1, g: 1, b: 1, a: 1}
     - _Tiling: {r: 8.32, g: 2.66, b: 0, a: 0}
     - _UvOffset: {r: 0, g: 0, b: 0, a: 0}
     - _UvTiling: {r: 1, g: 1, b: 0, a: 0}

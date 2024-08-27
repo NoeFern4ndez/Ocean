@@ -53,7 +53,8 @@ Shader "Custom/Ocean"
             #pragma vertex vert
             #pragma fragment frag
 
-            #include "UnityCG.cginc"          
+            #include "UnityCG.cginc" 
+            #include "UnityStandardBRDF.cginc"         
 
             // Visual properties
             float4 _Color;
@@ -108,7 +109,7 @@ Shader "Custom/Ocean"
 
             /* Iluminación Phong */
             // Función para calcular la iluminación Phong
-            half4 CalculatePhongLight(float3 normal, float3 viewDir, float2 uv)
+            half4 CalculatePhongLight(float3 normal, float3 viewDir, float2 uv, float3 position)
             {
                 /* Ambient */
                 float3 ambient = (_Color.rgb * tex2D(_WaterTex, uv)) * _Intensity;
@@ -123,8 +124,23 @@ Shader "Custom/Ocean"
                 float spec = pow(max(0, dot(viewDir, reflectDir)), _Shininess);
                 float3 specular = _Specular.rgb * spec * _Intensity;
 
+                /* Scatter  
+                https://gpuopen.com/gdc-presentations/2019/gdc-2019-agtd6-interactive-water-simulation-in-atlas.pdf
+                */;
+				// float3 scatterColor = _Diffuse.rgb;
+				
+				// float k1 = max(0, position.y) * pow(DotClamped(lightDir, -viewDir), 4.0f) * pow(0.5f - 0.5f * dot(normal, lightDir), 3.0f);
+				// float k2 = pow(DotClamped(viewDir, normal), 2.0f);
+				// float k3 = DotClamped(viewDir, normal);
+				// float k4 = 2;
+
+                
+				// float3 scatter = (k1 + k2) * scatterColor * specular ;
+				// scatter += k3 * scatterColor * specular + k4 * ambient * specular;
+
                 /* Devolver color */
                 return half4(ambient + diffuse + specular, 1);
+                // return half4(scatter, 1);
                 //return half4(diffuse, 1);
             }
 
@@ -182,8 +198,8 @@ Shader "Custom/Ocean"
                 float frequency = waveFrequency;
                 float phase = wavePhase;
                 float waveHeight = 0.0;
-                float freq_mult = 2.5;
-                float ampli_mult = 0.2;
+                float freq_mult = 1.2;
+                float ampli_mult = 0.8;
                 float d = position.x * waveDirection.x + position.z * waveDirection.y;
 
                 for(int i = 0; i < _subWaves; i++)
@@ -191,7 +207,7 @@ Shader "Custom/Ocean"
                     waveHeight += waveAmplitude * (exp(sin(d * frequency + _Time * phase)) - 1);
                     frequency *= freq_mult;
                     waveAmplitude *= ampli_mult;
-                    d = Noise(position.xz) * waveDirection.x + Noise(position.xz) * waveDirection.y;
+                    //d = Noise(waveDirection.x) * position.xz + Noise(waveDirection.y) * position.xz;
                 }
                 
                 return waveHeight;
@@ -204,8 +220,8 @@ Shader "Custom/Ocean"
                 float frequency = waveFrequency;
                 float phase = wavePhase;
                 float2 waveDerivative = (0,0);
-                float freq_mult = 2.5;
-                float ampli_mult = 0.2;
+                float freq_mult = 1.2;
+                float ampli_mult = 0.8;
                 float d = position.x * waveDirection.x + position.z * waveDirection.y;
 
                 for(int i = 0; i < _subWaves; i++)
@@ -214,7 +230,7 @@ Shader "Custom/Ocean"
                     waveDerivative.y += frequency * waveAmplitude * (exp(sin(d * frequency + _Time * phase)) - 1) * waveDirection.y * cos(d * frequency + _Time * phase);
                     frequency *= freq_mult;
                     waveAmplitude *= ampli_mult;
-                    d = Noise(position.xz) * waveDirection.x + Noise(position.xz) * waveDirection.y;
+                    //d = Noise(waveDirection.x) * position.xz + Noise(waveDirection.y) * position.xz;
                 }
 
                 
@@ -242,7 +258,7 @@ Shader "Custom/Ocean"
                 derivative += CalculateWaveDerivative(position, waveDirection3, _waveFrequency3, _waveAmplitude3, _wavePhase3);                   
                 position.y += CalculateWaveHeight(position, waveDirection4 + derivative , _waveFrequency4, _waveAmplitude4, _wavePhase4);
                 derivative += CalculateWaveDerivative(position, waveDirection4, _waveFrequency4, _waveAmplitude4, _wavePhase4);
-                
+
                 // nueva normal tras el desplazamiento de la ola
                 float3 tangent = normalize(float3(1, 0, derivative.x));
                 float3 binormal = normalize(float3(0, 1, derivative.y));
@@ -265,8 +281,9 @@ Shader "Custom/Ocean"
             half4 frag(v2f IN) : SV_Target
             {
                 half4 fresnelColor = lerp(texCUBE(_EnviroTexCube, IN.vRefract), texCUBE(_EnviroTexCube, IN.vReflect), IN.vFresnel);
-                half4 Phong = CalculatePhongLight(IN.normal, normalize(IN.vRefract - _WorldSpaceCameraPos), IN.uv);
-                return lerp(Phong, fresnelColor, _EnviroIntensity);
+                half4 Phong = CalculatePhongLight(IN.normal, normalize(IN.vRefract - _WorldSpaceCameraPos), IN.uv, IN.vertex.xyz);
+                
+                return Phong + fresnelColor * _EnviroIntensity;
             }
 
             ENDHLSL

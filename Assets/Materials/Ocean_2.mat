@@ -61,7 +61,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EnviroTexCube:
-        m_Texture: {fileID: 8900000, guid: 3b5d67736d7b8ad4f8da4d58eaef0b98, type: 3}
+        m_Texture: {fileID: 8900000, guid: 3675d0c3c874f6b479bab57eb7e68c90, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -115,19 +115,19 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
-    - _EnviroIntensity: 0.09
+    - _EnviroIntensity: 1
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _Intensity: 1.3
+    - _Intensity: 0.82
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Shininess: 91.66
+    - _Shininess: 2.34
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -142,40 +142,40 @@ Material:
     - _UseRoughnessMap: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
-    - _refractRatio: 0.86
-    - _subWaves: 10
-    - _waveAmplitude: 0.72
-    - _waveAmplitude2: 0.53
-    - _waveAmplitude3: 0.94
-    - _waveAmplitude4: 1.91
-    - _waveFrequency: 0.03
-    - _waveFrequency2: 0.42
-    - _waveFrequency3: 0.14
-    - _waveFrequency4: 0.12
+    - _refractRatio: 1.5
+    - _subWaves: 9.6
+    - _waveAmplitude: 1.73
+    - _waveAmplitude2: 1.55
+    - _waveAmplitude3: 0.55
+    - _waveAmplitude4: 0.74
+    - _waveFrequency: 0.04
+    - _waveFrequency2: 0.13
+    - _waveFrequency3: 0.13
+    - _waveFrequency4: 0.07
     - _waveLength: 7.64
     - _waveLength2: 21.6
     - _waveLength3: 32.3
     - _waveLength4: 26.57
-    - _wavePhase: 11.8
-    - _wavePhase2: 13.25
-    - _wavePhase3: 19.3
-    - _wavePhase4: 15
+    - _wavePhase: 13.08
+    - _wavePhase2: 5.09
+    - _wavePhase3: 8.47
+    - _wavePhase4: 6.08
     - _waveSpeed: 200
     - _waveSpeed2: 130
     - _waveSpeed3: 100
     - _waveSpeed4: 80
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0.13337484, g: 0.4282084, b: 0.5566038, a: 1}
-    - _Diffuse: {r: 0.23780702, g: 0.6039517, b: 0.754717, a: 1}
+    - _Color: {r: 0.3519936, g: 0.62322664, b: 0.6603774, a: 1}
+    - _Diffuse: {r: 0.09567462, g: 0.35440215, b: 0.4716981, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _LightDir: {r: 1.27, g: 1.95, b: 0.45, a: 1}
+    - _LightDir: {r: -0.92, g: 3.78, b: 0.7, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _Specular: {r: 1, g: 1, b: 1, a: 1}
     - _UvOffset: {r: 0, g: 0, b: 0, a: 0}
     - _UvTiling: {r: 1, g: 1, b: 0, a: 0}
-    - _waveDirection: {r: 2.3, g: -1.21, b: 1, a: 1}
-    - _waveDirection2: {r: -1.39, g: 0.79, b: 1, a: 1}
-    - _waveDirection3: {r: 0.12, g: -5.97, b: 1, a: 1}
-    - _waveDirection4: {r: 0.49, g: -1.93, b: 1, a: 1}
+    - _waveDirection: {r: 0.36, g: 0.5, b: 1, a: 1}
+    - _waveDirection2: {r: -0.54, g: 0.36, b: 1, a: 1}
+    - _waveDirection3: {r: 0.3, g: 3.35, b: 1, a: 1}
+    - _waveDirection4: {r: 3.19, g: -1.93, b: 1, a: 1}
   m_BuildTextureStacks: []
