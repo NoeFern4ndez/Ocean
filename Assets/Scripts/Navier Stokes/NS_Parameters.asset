@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timestep: 0.004
   resolution: 512
-  jacobiIterations: 20
+  jacobiIterations: 30
   simulationScale: 8
-  dissipation: 1
+  dissipation: 0.99
   inkDissipation: 0.99
-  velViscosity: 100
+  velViscosity: 1
   inkViscosity: 0.000001
-  inkColor: {r: 0.6226415, g: 0.19001758, b: 0.0029369951, a: 1}
+  inkColor: {r: 1, g: 0.20058592, b: 0, a: 1}
   applyVorticity: 0
-  boundaryConditions: 1
-  vorticityFactor: 10
-  forceRadius: 1.73
+  boundaryConditions: 0
+  vorticityFactor: 25.63
+  forceRadius: 2

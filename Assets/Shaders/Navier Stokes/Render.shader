@@ -3,13 +3,16 @@ Shader "Custom/Render"
     Properties
     { 
         _uC ("Fluid Texture", 2D) = "" {} // Campo a visualizar
-        // _uColor ("Color", Color) = (1, 1, 1, 1) // Color del campo
+        _colorFactor ("Color Factor", Float) = 1.0 // Multiplicador de color
         _uTexelSize ("Texel Size", Float) = 0.1 // Tamaño de texel
     }
 
     SubShader
     {
-        Tags { "RenderType" = "TransparentCutout" }
+        Tags { "Queue" = "Transparent" "RenderType" = "Transparent" }
+        Blend SrcAlpha OneMinusSrcAlpha
+        ZWrite Off
+        
         Pass
         {
             HLSLPROGRAM
@@ -20,7 +23,7 @@ Shader "Custom/Render"
             #include "UnityCG.cginc" 
 
             sampler2D _uC;
-            // float4 _uColor;
+            float _colorFactor;
             float _uTexelSize;
 
             struct MeshData
@@ -59,13 +62,27 @@ Shader "Custom/Render"
 
             half4 frag(v2f IN) : SV_Target
             {
+                // Sample the color from the texture
                 half4 color = tex2D(_uC, IN.vCoords);
-
+                
+                // Calculate smooth alpha based on color intensity
+                float alpha = smoothstep(0.0, 0.2, length(color.rgb));
+                color.a *= alpha;
+                
+                // Calculate distance from texture center to create edge fade
+                float2 center = float2(0.5, 0.5); 
+                float distance = length(IN.vCoords - center);
+                float edgeFade = smoothstep(0.35, 0.55, distance); 
+                
+                color.a *= (1.0 - edgeFade);
+                color.rgb *= _colorFactor;
+                
                 return color;
             }
 
             ENDHLSL
         }
     }
-    FallBack "Diffuse"
+    FallBack "Transparent/Diffuse/VertexLit"
 }
+

@@ -114,7 +114,7 @@ public class NavierStokes : MonoBehaviour
         forceApplicationMaterial.SetFloat("_uTexelSize", texelSize);
         forceApplicationMaterial.SetTexture("_uC", velTexture);
         forceApplicationMaterial.SetFloat("_uTimestep", ns.timestep * Time.deltaTime);
-        forceApplicationMaterial.SetVector("_uForce", new Vector3(Force.x, Force.z, 0.1f));
+        forceApplicationMaterial.SetVector("_uForce", new Vector3(Force.x, Force.z, 0.0f));
         forceApplicationMaterial.SetVector("_uForceLocation", ForcePosition);
         forceApplicationMaterial.SetFloat("_uRadius", ns.forceRadius * texelSize);
         Graphics.Blit(velTexture, swapTexture1, forceApplicationMaterial); // swapTexture1 = forceApplication(velTexture)
