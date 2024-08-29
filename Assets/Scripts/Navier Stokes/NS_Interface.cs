@@ -26,9 +26,13 @@ public class NS_Interface : EditorWindow
             serializedParameters.Update();
 
             EditorGUILayout.PropertyField(serializedParameters.FindProperty("timestep"));
+            EditorGUILayout.PropertyField(serializedParameters.FindProperty("jacobiIterations"));
+            EditorGUILayout.PropertyField(serializedParameters.FindProperty("simulationScale"));
             EditorGUILayout.PropertyField(serializedParameters.FindProperty("resolution"));
             EditorGUILayout.Slider(serializedParameters.FindProperty("dissipation"), 0.0f, 1.0f);
             EditorGUILayout.Slider(serializedParameters.FindProperty("inkDissipation"), 0.0f, 1.0f);
+            EditorGUILayout.PropertyField(serializedParameters.FindProperty("velViscosity"));
+            EditorGUILayout.PropertyField(serializedParameters.FindProperty("inkViscosity"));
             EditorGUILayout.PropertyField(serializedParameters.FindProperty("inkColor"));
             EditorGUILayout.PropertyField(serializedParameters.FindProperty("forceRadius"));
             EditorGUILayout.PropertyField(serializedParameters.FindProperty("boundaryConditions"));

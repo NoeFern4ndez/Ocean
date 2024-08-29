@@ -12,12 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45cd87b31e853524089d6b0194dd7a41, type: 3}
   m_Name: NS_Parameters
   m_EditorClassIdentifier: 
-  timestep: 0.01
-  resolution: 1024
-  dissipation: 0.99
+  timestep: 0.004
+  resolution: 512
+  jacobiIterations: 20
+  simulationScale: 8
+  dissipation: 1
   inkDissipation: 0.99
-  inkColor: {r: 0.5660378, g: 0.1835647, b: 0.06140977, a: 1}
+  velViscosity: 100
+  inkViscosity: 0.000001
+  inkColor: {r: 0.6226415, g: 0.19001758, b: 0.0029369951, a: 1}
   applyVorticity: 0
-  boundaryConditions: 0
-  vorticityFactor: 0.2
-  forceRadius: 1
+  boundaryConditions: 1
+  vorticityFactor: 10
+  forceRadius: 1.73

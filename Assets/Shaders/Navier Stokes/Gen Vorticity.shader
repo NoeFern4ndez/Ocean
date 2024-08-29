@@ -1,9 +1,8 @@
-Shader "Custom/Gradient Substraction"
+Shader "Custom/Gen Vorticity"
 {
     Properties
     { 
         _uW ("Velocity Texture", 2D) = "" {} // Campo de velocidades
-        _uP ("Pressure Texture", 2D) = "" {} // Campo de presiones
         _uTexelSize ("Texel Size", Float) = 0.1 // Tamaño de texel
     }
 
@@ -20,7 +19,6 @@ Shader "Custom/Gradient Substraction"
             #include "UnityCG.cginc" 
 
             sampler2D _uW;
-            sampler2D _uP;
             float _uTexelSize; 
 
             struct MeshData
@@ -59,17 +57,15 @@ Shader "Custom/Gradient Substraction"
 
             half4 frag(v2f IN) : SV_Target
             {
-                half pL = tex2D(_uP, IN.vLeft).x; // Se corresponde con p_{i-1,j}^{k}.x (la vecina de la izquierda)
-                half pR = tex2D(_uP, IN.vRight).x; // Se corresponde con p_{i+1,j}^{k}.x (la vecina de la derecha)
-                half pT = tex2D(_uP, IN.vTop).y; // Se corresponde con p_{i,j+1}^{k}.y (la vecina de arriba)
-                half pB = tex2D(_uP, IN.vBottom).y; // Se corresponde con p_{i,j-1}^{k}.y (la vecina de abajo)
+                half wL = tex2D(_uW, IN.vLeft).x; // Se corresponde con w_{i-1,j}^{k}.x (la vecina de la izquierda)
+                half wR = tex2D(_uW, IN.vRight).x; // Se corresponde con w_{i+1,j}^{k}.x (la vecina de la derecha)
+                half wT = tex2D(_uW, IN.vTop).y; // Se corresponde con w_{i,j+1}^{k}.y (la vecina de arriba)
+                half wB = tex2D(_uW, IN.vBottom).y; // Se corresponde con w_{i,j-1}^{k}.y (la vecina de abajo)
 
-                // ∇p = (p_{i+1,j} - p_{i-1,j}, p_{i,j+1} - p_{i,j-1}) / 2
-                half2 gradient = half2(pR - pL, pT - pB) / (2 * _uTexelSize) ;
-                half4 vel = tex2D(_uW, IN.vCoords);
-                vel.xy -= gradient;
-
-                return vel;
+                // vorticity = ∇.w = (v_{i+1,j} - v_{i-1,j} - v_{i,j+1} + v_{i,j-1}) / 2 
+                float vorticity = (wT - wB - (wR - wL)) / (2.0 * _uTexelSize);
+            
+                return half4(vorticity, 0.0, 0.0, 1.0);
             }
 
             ENDHLSL

@@ -482,7 +482,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 2, y: 1, z: 2}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 829161082}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &517006649
@@ -507,6 +508,8 @@ MonoBehaviour:
     type: 3}
   jacobi: {fileID: 4800000, guid: 0a5adac1f69f2ad438f546eea4db78a8, type: 3}
   render: {fileID: 4800000, guid: 1522cbeff13bed74d973a67860b3cc54, type: 3}
+  genVorticity: {fileID: 4800000, guid: b3c507e49b3129342b70cc54f45307c5, type: 3}
+  vorticity: {fileID: 4800000, guid: 88e104eff6656f146a2e926fea1f8b7b, type: 3}
   renderMaterial: {fileID: 2100000, guid: dc02664cb7846c843b229f47e215b788, type: 2}
 --- !u!1 &829161080
 GameObject:
@@ -519,7 +522,7 @@ GameObject:
   - component: {fileID: 829161082}
   - component: {fileID: 829161081}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Emisor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -554,12 +557,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 829161080}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 0, z: 0.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalScale: {x: 0.5, y: 1, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 517006648}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
@@ -568,4 +571,3 @@ SceneRoots:
   - {fileID: 95218416}
   - {fileID: 430691546}
   - {fileID: 517006648}
-  - {fileID: 829161082}

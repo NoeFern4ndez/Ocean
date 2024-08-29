@@ -9,7 +9,7 @@ Shader "Custom/Render"
 
     SubShader
     {
-        Tags { "RenderType" = "Opaque" }
+        Tags { "RenderType" = "TransparentCutout" }
         Pass
         {
             HLSLPROGRAM
@@ -59,7 +59,9 @@ Shader "Custom/Render"
 
             half4 frag(v2f IN) : SV_Target
             {
-                return tex2D(_uC, IN.vCoords);
+                half4 color = tex2D(_uC, IN.vCoords);
+
+                return color;
             }
 
             ENDHLSL
