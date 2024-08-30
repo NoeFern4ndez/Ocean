@@ -16,11 +16,11 @@ MonoBehaviour:
   resolution: 512
   jacobiIterations: 30
   simulationScale: 8
-  dissipation: 0.99
-  inkDissipation: 0.99
+  dissipation: 0.998
+  inkDissipation: 0.998
   velViscosity: 1
-  inkViscosity: 0.000001
-  inkColor: {r: 1, g: 0.20058592, b: 0, a: 1}
+  inkViscosity: 0.00002
+  inkColor: {r: 0.4811321, g: 0.4811321, b: 0.4811321, a: 1}
   applyVorticity: 0
   boundaryConditions: 0
   vorticityFactor: 25.63
