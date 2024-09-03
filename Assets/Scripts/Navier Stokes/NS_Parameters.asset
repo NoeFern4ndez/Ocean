@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: NS_Parameters
   m_EditorClassIdentifier: 
   timestep: 0.004
-  resolution: 512
-  jacobiIterations: 30
-  simulationScale: 8
+  resolution: 256
+  jacobiIterations: 20
+  simulationScale: 16
   dissipation: 0.998
-  inkDissipation: 0.998
+  inkDissipation: 0.99
   velViscosity: 1
   inkViscosity: 0.00002
-  inkColor: {r: 0.4811321, g: 0.4811321, b: 0.4811321, a: 1}
+  inkColor: {r: 0.509434, g: 0.2357381, b: 0, a: 1}
   applyVorticity: 0
   boundaryConditions: 0
   vorticityFactor: 25.63
