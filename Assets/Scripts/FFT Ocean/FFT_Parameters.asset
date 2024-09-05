@@ -13,19 +13,23 @@ MonoBehaviour:
   m_Name: FFT_Parameters
   m_EditorClassIdentifier: 
   jonswap1:
-    windSpeed: 14.95
-    windDirection: 156
+    windSpeed: 32
+    windDirection: 0
     windFetch: 500
+    oceanDepth: 500
   jonswap2:
     windSpeed: 10
-    windDirection: 0
-    windFetch: 1000
+    windDirection: 90
+    windFetch: 1200
+    oceanDepth: 800
   jonswap3:
-    windSpeed: 10
-    windDirection: 0
-    windFetch: 1000
+    windSpeed: 20
+    windDirection: 210
+    windFetch: 1500
+    oceanDepth: 600
   jonswap4:
-    windSpeed: 10
-    windDirection: 0
-    windFetch: 1000
+    windSpeed: 40
+    windDirection: 120
+    windFetch: 800
+    oceanDepth: 1000
   resolution: 256

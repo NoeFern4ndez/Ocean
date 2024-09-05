@@ -10,6 +10,7 @@ public class FFT_Parameters : ScriptableObject
         public float windSpeed = 10.0f;
         public float windDirection = 0.0f;  
         public float windFetch = 1000.0f;
+        public float oceanDepth = 1000.0f;
         
     }
 

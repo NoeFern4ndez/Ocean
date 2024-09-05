@@ -181,6 +181,7 @@ MonoBehaviour:
   param: {fileID: 11400000, guid: cf0860e982863a84cb54b3858c416016, type: 2}
   genJONSWAP: {fileID: 4800000, guid: 3064fb2fd36a0e44bbd0d95cb1729292, type: 3}
   renderOcean: {fileID: 4800000, guid: 53560bcc839b8584d9fd2a4902526a87, type: 3}
+  advanceOcean: {fileID: 4800000, guid: bd7ae31de38ba5943b82fae98e769adf, type: 3}
   computeFFT: {fileID: 7200000, guid: 7924886ba347733438cb333ed321cbc6, type: 3}
   renderMaterial: {fileID: 2100000, guid: 1d8ec3e5fe2687345a17d839e76ae2c1, type: 2}
 --- !u!23 &897208872
@@ -203,7 +204,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1d8ec3e5fe2687345a17d839e76ae2c1, type: 2}
+  - {fileID: 2100000, guid: 530b03e41584aab43adcb4741b9bc934, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -5,12 +5,13 @@ using UnityEngine;
 public class FFT_Ocean : MonoBehaviour
 {
     public FFT_Parameters param;
-    public Shader genJONSWAP, renderOcean;
+    public Shader genJONSWAP, renderOcean, advanceOcean;
     public ComputeShader computeFFT;
 
     public Material renderMaterial;
 
     private RenderTexture[] jonswapTextures;
+    private RenderTexture[] timeSpecTextures;
     private RenderTexture oceanTex;
     private RenderTexture[] fftTextures;
     private RenderTexture[] fftDerivTextures;
@@ -20,6 +21,7 @@ public class FFT_Ocean : MonoBehaviour
     private RenderTexture fftPingPongBuffer1;
 
     private Material[] jonswapMaterials;
+    private Material[] timeSpecMaterials;
     private Material renderOceanMat;
     private Material[] fftMaterials;
     private Material[] fftDerivMaterials;
@@ -32,9 +34,11 @@ public class FFT_Ocean : MonoBehaviour
 
         // Initialize arrays
         jonswapTextures = new RenderTexture[4];
+        timeSpecTextures = new RenderTexture[4];
         fftTextures = new RenderTexture[4];
         fftDerivTextures = new RenderTexture[4];
         jonswapMaterials = new Material[4];
+        timeSpecMaterials = new Material[4];
         fftMaterials = new Material[4];
         fftDerivMaterials = new Material[4];
 
@@ -46,14 +50,17 @@ public class FFT_Ocean : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             jonswapTextures[i] = createRenderTexture(size);
+            timeSpecTextures[i] = createRenderTexture(size);
             fftTextures[i] = createRenderTexture(size);
             fftDerivTextures[i] = createRenderTexture(size);
 
             ClearRenderTexture(jonswapTextures[i]);
+            ClearRenderTexture(timeSpecTextures[i]);
             ClearRenderTexture(fftTextures[i]);
             ClearRenderTexture(fftDerivTextures[i]);
 
             jonswapMaterials[i] = new Material(genJONSWAP);
+            timeSpecMaterials[i] = new Material(advanceOcean);
         }
 
         oceanTex = createRenderTexture(size);
@@ -72,26 +79,44 @@ public class FFT_Ocean : MonoBehaviour
         Graphics.Blit(null, jonswapTextures[2], jonswapMaterials[2]);
         Graphics.Blit(null, jonswapTextures[3], jonswapMaterials[3]);
 
+        // render jonsawp to check
+        // GetComponent<Renderer>().material.mainTexture = jonswapTextures[0];
+        
+
     }
 
     void Update()
     {
-         // Perform FFT on the spectrum textures
+        // Perform time stepping on the ocean textures
         for (int i = 0; i < 4; i++)
         {
-            PerformFFT(jonswapTextures[i], fftTextures[i]);
+            timeSpecMaterials[i].SetTexture("_h0", jonswapTextures[i]);
+            timeSpecMaterials[i].SetFloat("_FrameTime", Time.deltaTime);
+            timeSpecMaterials[i].SetFloat("_N", size);
+            //timeSpecMaterials[i].SetTexture("_Ocean", oceanTex);
+            Graphics.Blit(null, timeSpecTextures[i], timeSpecMaterials[i]);
         }
+
+        // Perform FFT on the spectrum textures
+        for (int i = 0; i < 4; i++)
+        {
+            PerformFFT(timeSpecTextures[i], fftTextures[i]);
+        }
+
+        GetComponent<Renderer>().material.mainTexture = fftTextures[0];
 
         for (int i = 0; i < 4; i++)
         {
             PerformFFT(fftTextures[i], fftDerivTextures[i]);
         }
 
-        // Set the render texture for the ocean shader
-        setRenderTexture();
+        GetComponent<Renderer>().material.mainTexture = timeSpecTextures[0];
 
-        // Set the object's material to the ocean material
-        GetComponent<Renderer>().material = renderOceanMat;
+        // // Set the render texture for the ocean shader
+        // setRenderTexture();
+
+        // // Set the object's material to the ocean material
+        // GetComponent<Renderer>().material = renderOceanMat;
     }
 
     void ClearRenderTexture(RenderTexture rt)
@@ -104,7 +129,7 @@ public class FFT_Ocean : MonoBehaviour
     RenderTexture createRenderTexture(int resolution)
     {
         RenderTexture renderTexture = new RenderTexture(resolution, resolution, 0, RenderTextureFormat.ARGBHalf);
-        renderTexture.enableRandomWrite = true;  // Enable random write for compute shaders
+        renderTexture.enableRandomWrite = true; 
         renderTexture.filterMode = FilterMode.Bilinear;
         renderTexture.wrapMode = TextureWrapMode.Repeat;
         renderTexture.Create();
@@ -171,6 +196,7 @@ public class FFT_Ocean : MonoBehaviour
         mat.SetFloat("_wp", calcJONSWAPwp(jonswap.windSpeed, jonswap.windFetch));
         mat.SetFloat("_alpha", calcJONSWAPalpha(jonswap.windSpeed, jonswap.windFetch));
         mat.SetInt("_seed", Random.Range(0, 100));
+        mat.SetFloat("_oceanDepth", jonswap.oceanDepth);
     }
 
     float calcJONSWAPwp(float U10, float F)
@@ -185,15 +211,14 @@ public class FFT_Ocean : MonoBehaviour
 
     void setRenderTexture()
     {
-        // renderOceanMat.SetTexture("_fftTexture1", fftTextures[0]);
-        // renderOceanMat.SetTexture("_fftTexture2", fftTextures[1]);
-        // renderOceanMat.SetTexture("_fftTexture3", fftTextures[2]);
-        // renderOceanMat.SetTexture("_fftTexture4", fftTextures[3]);
-        renderOceanMat.SetTexture("_fftTexture1", jonswapTextures[0]);
+        renderOceanMat.SetTexture("_fftTexture1", fftTextures[0]);
+        renderOceanMat.SetTexture("_fftTexture2", fftTextures[1]);
+        renderOceanMat.SetTexture("_fftTexture3", fftTextures[2]);
+        renderOceanMat.SetTexture("_fftTexture4", fftTextures[3]);
 
-        // renderOceanMat.SetTexture("_fftDerivative1", fftDerivTextures[0]);
-        // renderOceanMat.SetTexture("_fftDerivative2", fftDerivTextures[1]);
-        // renderOceanMat.SetTexture("_fftDerivative3", fftDerivTextures[2]);
-        // renderOceanMat.SetTexture("_fftDerivative4", fftDerivTextures[3]);
+        renderOceanMat.SetTexture("_fftDerivative1", fftDerivTextures[0]);
+        renderOceanMat.SetTexture("_fftDerivative2", fftDerivTextures[1]);
+        renderOceanMat.SetTexture("_fftDerivative3", fftDerivTextures[2]);
+        renderOceanMat.SetTexture("_fftDerivative4", fftDerivTextures[3]);
     }
 }

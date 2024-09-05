@@ -149,23 +149,23 @@ Shader "Custom/FFT_Ocean"
                 float4 position = IN.vertex;
                 float3 normal = IN.normal;
 
-                // Altura de la ola
-                float2 derivative = float2(0, 0);
+                // // Altura de la ola
+                // float2 derivative = float2(0, 0);
 
-                position += tex2Dlod (_fftTexture1, position);
-                position += tex2Dlod (_fftTexture2, position);
-                position += tex2Dlod (_fftTexture3, position);
-                position += tex2Dlod (_fftTexture4, position);
-                derivative += tex2Dlod (_fftDerivative1, position);
-                derivative += tex2Dlod (_fftDerivative2, position);
-                derivative += tex2Dlod (_fftDerivative3, position);
-                derivative += tex2Dlod (_fftDerivative4, position);
+                // position += tex2Dlod (_fftTexture1, position);
+                // position += tex2Dlod (_fftTexture2, position);
+                // position += tex2Dlod (_fftTexture3, position);
+                // position += tex2Dlod (_fftTexture4, position);
+                // derivative += tex2Dlod (_fftDerivative1, position);
+                // derivative += tex2Dlod (_fftDerivative2, position);
+                // derivative += tex2Dlod (_fftDerivative3, position);
+                // derivative += tex2Dlod (_fftDerivative4, position);
 
 
-                // nueva normal tras el desplazamiento de la ola
-                float3 tangent = normalize(float3(1, 0, derivative.x));
-                float3 binormal = normalize(float3(0, 1, derivative.y));
-                normal = normalize(cross(tangent, binormal));
+                // // nueva normal tras el desplazamiento de la ola
+                // float3 tangent = normalize(float3(1, 0, derivative.x));
+                // float3 binormal = normalize(float3(0, 1, derivative.y));
+                // normal = normalize(cross(tangent, binormal));
 
                 OUT.vertex = UnityObjectToClipPos(position);
                 OUT.normal = normal;

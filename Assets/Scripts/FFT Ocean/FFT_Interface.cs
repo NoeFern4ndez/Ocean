@@ -42,21 +42,25 @@ public class FFT_Interface : EditorWindow
             EditorGUILayout.PropertyField(jonswap1.FindPropertyRelative("windSpeed"), new GUIContent("Wind Speed"));
             EditorGUILayout.Slider(jonswap1.FindPropertyRelative("windDirection"), 0.0f, 360.0f, new GUIContent("Wind Direction"));
             EditorGUILayout.PropertyField(jonswap1.FindPropertyRelative("windFetch"), new GUIContent("Wind Fetch"));
+            EditorGUILayout.PropertyField(jonswap1.FindPropertyRelative("oceanDepth"), new GUIContent("Ocean Depth"));
 
             EditorGUILayout.LabelField("2nd JONSWAP Parameters", EditorStyles.boldLabel);
             EditorGUILayout.PropertyField(jonswap2.FindPropertyRelative("windSpeed"), new GUIContent("Wind Speed"));
             EditorGUILayout.Slider(jonswap2.FindPropertyRelative("windDirection"), 0.0f, 360.0f, new GUIContent("Wind Direction"));
             EditorGUILayout.PropertyField(jonswap2.FindPropertyRelative("windFetch"), new GUIContent("Wind Fetch"));
+            EditorGUILayout.PropertyField(jonswap2.FindPropertyRelative("oceanDepth"), new GUIContent("Ocean Depth"));
 
             EditorGUILayout.LabelField("3rd JONSWAP Parameters", EditorStyles.boldLabel);
             EditorGUILayout.PropertyField(jonswap3.FindPropertyRelative("windSpeed"), new GUIContent("Wind Speed"));
             EditorGUILayout.Slider(jonswap3.FindPropertyRelative("windDirection"), 0.0f, 360.0f, new GUIContent("Wind Direction"));
             EditorGUILayout.PropertyField(jonswap3.FindPropertyRelative("windFetch"), new GUIContent("Wind Fetch"));
+            EditorGUILayout.PropertyField(jonswap3.FindPropertyRelative("oceanDepth"), new GUIContent("Ocean Depth"));
 
             EditorGUILayout.LabelField("4th JONSWAP Parameters", EditorStyles.boldLabel);
             EditorGUILayout.PropertyField(jonswap4.FindPropertyRelative("windSpeed"), new GUIContent("Wind Speed"));
             EditorGUILayout.Slider(jonswap4.FindPropertyRelative("windDirection"), 0.0f, 360.0f, new GUIContent("Wind Direction"));
             EditorGUILayout.PropertyField(jonswap4.FindPropertyRelative("windFetch"), new GUIContent("Wind Fetch"));
+            EditorGUILayout.PropertyField(jonswap4.FindPropertyRelative("oceanDepth"), new GUIContent("Ocean Depth"));
 
             serializedParameters.ApplyModifiedProperties();
         }
