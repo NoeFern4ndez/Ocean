@@ -4,15 +4,13 @@ using UnityEngine;
 public class FFT_Parameters : ScriptableObject
 {
     [System.Serializable]
+ 
     public class JONSWAP
     {
-        public float A; // Amplitude
-        public float B; // Spectral width
-        public float g; // Gravity
-        public float sigma; // Wind speed
-        public float omegaPeak; // Peak frequency
-        public float alpha; // Peak sharpness
-        public float gamma; // Peak spreading
+        public float windSpeed = 10.0f;
+        public float windDirection = 0.0f;  
+        public float windFetch = 1000.0f;
+        
     }
 
     public JONSWAP jonswap1 = new JONSWAP();

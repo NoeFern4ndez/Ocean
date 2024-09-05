@@ -13,35 +13,19 @@ MonoBehaviour:
   m_Name: FFT_Parameters
   m_EditorClassIdentifier: 
   jonswap1:
-    A: 0
-    B: 0
-    g: 0
-    sigma: 0
-    omegaPeak: 0
-    alpha: 0
-    gamma: 0
+    windSpeed: 14.95
+    windDirection: 156
+    windFetch: 500
   jonswap2:
-    A: 0
-    B: 0
-    g: 0
-    sigma: 0
-    omegaPeak: 0
-    alpha: 0
-    gamma: 0
+    windSpeed: 10
+    windDirection: 0
+    windFetch: 1000
   jonswap3:
-    A: 0
-    B: 0
-    g: 0
-    sigma: 0
-    omegaPeak: 0
-    alpha: 0
-    gamma: 0
+    windSpeed: 10
+    windDirection: 0
+    windFetch: 1000
   jonswap4:
-    A: 0
-    B: 0
-    g: 0
-    sigma: 0
-    omegaPeak: 0
-    alpha: 0
-    gamma: 0
+    windSpeed: 10
+    windDirection: 0
+    windFetch: 1000
   resolution: 256

@@ -39,36 +39,24 @@ public class FFT_Interface : EditorWindow
 
 
             EditorGUILayout.LabelField("1st JONSWAP Parameters", EditorStyles.boldLabel);
-            EditorGUILayout.PropertyField(jonswap1.FindPropertyRelative("A"), new GUIContent("Amplitude"));
-            EditorGUILayout.PropertyField(jonswap1.FindPropertyRelative("B"), new GUIContent("Spectral width"));
-            EditorGUILayout.PropertyField(jonswap1.FindPropertyRelative("sigma"), new GUIContent("Wind speed"));
-            EditorGUILayout.PropertyField(jonswap1.FindPropertyRelative("omegaPeak"), new GUIContent("Peak frequency"));
-            EditorGUILayout.PropertyField(jonswap1.FindPropertyRelative("alpha"), new GUIContent("Peak sharpness"));
-            EditorGUILayout.PropertyField(jonswap1.FindPropertyRelative("gamma"), new GUIContent("Peak spreading"));
+            EditorGUILayout.PropertyField(jonswap1.FindPropertyRelative("windSpeed"), new GUIContent("Wind Speed"));
+            EditorGUILayout.Slider(jonswap1.FindPropertyRelative("windDirection"), 0.0f, 360.0f, new GUIContent("Wind Direction"));
+            EditorGUILayout.PropertyField(jonswap1.FindPropertyRelative("windFetch"), new GUIContent("Wind Fetch"));
 
             EditorGUILayout.LabelField("2nd JONSWAP Parameters", EditorStyles.boldLabel);
-            EditorGUILayout.PropertyField(jonswap2.FindPropertyRelative("A"), new GUIContent("Amplitude"));
-            EditorGUILayout.PropertyField(jonswap2.FindPropertyRelative("B"), new GUIContent("Spectral width"));
-            EditorGUILayout.PropertyField(jonswap2.FindPropertyRelative("sigma"), new GUIContent("Wind speed"));
-            EditorGUILayout.PropertyField(jonswap2.FindPropertyRelative("omegaPeak"), new GUIContent("Peak frequency"));
-            EditorGUILayout.PropertyField(jonswap2.FindPropertyRelative("alpha"), new GUIContent("Peak sharpness"));
-            EditorGUILayout.PropertyField(jonswap2.FindPropertyRelative("gamma"), new GUIContent("Peak spreading"));
+            EditorGUILayout.PropertyField(jonswap2.FindPropertyRelative("windSpeed"), new GUIContent("Wind Speed"));
+            EditorGUILayout.Slider(jonswap2.FindPropertyRelative("windDirection"), 0.0f, 360.0f, new GUIContent("Wind Direction"));
+            EditorGUILayout.PropertyField(jonswap2.FindPropertyRelative("windFetch"), new GUIContent("Wind Fetch"));
 
             EditorGUILayout.LabelField("3rd JONSWAP Parameters", EditorStyles.boldLabel);
-            EditorGUILayout.PropertyField(jonswap3.FindPropertyRelative("A"), new GUIContent("Amplitude"));
-            EditorGUILayout.PropertyField(jonswap3.FindPropertyRelative("B"), new GUIContent("Spectral width"));
-            EditorGUILayout.PropertyField(jonswap3.FindPropertyRelative("sigma"), new GUIContent("Wind speed"));
-            EditorGUILayout.PropertyField(jonswap3.FindPropertyRelative("omegaPeak"), new GUIContent("Peak frequency"));
-            EditorGUILayout.PropertyField(jonswap3.FindPropertyRelative("alpha"), new GUIContent("Peak sharpness"));
-            EditorGUILayout.PropertyField(jonswap3.FindPropertyRelative("gamma"), new GUIContent("Peak spreading"));
+            EditorGUILayout.PropertyField(jonswap3.FindPropertyRelative("windSpeed"), new GUIContent("Wind Speed"));
+            EditorGUILayout.Slider(jonswap3.FindPropertyRelative("windDirection"), 0.0f, 360.0f, new GUIContent("Wind Direction"));
+            EditorGUILayout.PropertyField(jonswap3.FindPropertyRelative("windFetch"), new GUIContent("Wind Fetch"));
 
             EditorGUILayout.LabelField("4th JONSWAP Parameters", EditorStyles.boldLabel);
-            EditorGUILayout.PropertyField(jonswap4.FindPropertyRelative("A"), new GUIContent("Amplitude"));
-            EditorGUILayout.PropertyField(jonswap4.FindPropertyRelative("B"), new GUIContent("Spectral width"));
-            EditorGUILayout.PropertyField(jonswap4.FindPropertyRelative("sigma"), new GUIContent("Wind speed"));
-            EditorGUILayout.PropertyField(jonswap4.FindPropertyRelative("omegaPeak"), new GUIContent("Peak frequency"));
-            EditorGUILayout.PropertyField(jonswap4.FindPropertyRelative("alpha"), new GUIContent("Peak sharpness"));
-            EditorGUILayout.PropertyField(jonswap4.FindPropertyRelative("gamma"), new GUIContent("Peak spreading"));
+            EditorGUILayout.PropertyField(jonswap4.FindPropertyRelative("windSpeed"), new GUIContent("Wind Speed"));
+            EditorGUILayout.Slider(jonswap4.FindPropertyRelative("windDirection"), 0.0f, 360.0f, new GUIContent("Wind Direction"));
+            EditorGUILayout.PropertyField(jonswap4.FindPropertyRelative("windFetch"), new GUIContent("Wind Fetch"));
 
             serializedParameters.ApplyModifiedProperties();
         }
