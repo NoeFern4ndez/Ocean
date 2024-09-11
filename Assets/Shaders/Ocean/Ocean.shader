@@ -173,23 +173,23 @@ Shader "Custom/Ocean"
                 return frac(sin(dot(n, float2(12.9898, 78.233))) * 43758.5453);
             }
 
-        float Noise(float2 st) 
-        {
-            float2 i = floor(st);
-            float2 f = frac(st);
+            float Noise(float2 st) 
+            {
+                float2 i = floor(st);
+                float2 f = frac(st);
 
-            // Cuatro esquinas en 2D de un tile
-            float a = Random(i);
-            float b = Random(i + float2(1.0, 0.0));
-            float c = Random(i + float2(0.0, 1.0));
-            float d = Random(i + float2(1.0, 1.0));
+                // Cuatro esquinas en 2D de un tile
+                float a = Random(i);
+                float b = Random(i + float2(1.0, 0.0));
+                float c = Random(i + float2(0.0, 1.0));
+                float d = Random(i + float2(1.0, 1.0));
 
-            float2 u = f * f * (3.0 - 2.0 * f);
+                float2 u = f * f * (3.0 - 2.0 * f);
 
-            return lerp(a, b, u.x) +
-                (c - a) * u.y * (1.0 - u.x) +
-                (d - b) * u.x * u.y;
-        }
+                return lerp(a, b, u.x) +
+                    (c - a) * u.y * (1.0 - u.x) +
+                    (d - b) * u.x * u.y;
+            }
 
 
             // Función para calcular las olas
@@ -207,7 +207,6 @@ Shader "Custom/Ocean"
                     waveHeight += waveAmplitude * (exp(sin(d * frequency + _Time * phase)) - 1);
                     frequency *= freq_mult;
                     waveAmplitude *= ampli_mult;
-                    //d = Noise(waveDirection.x) * position.xz + Noise(waveDirection.y) * position.xz;
                 }
                 
                 return waveHeight;
@@ -230,7 +229,6 @@ Shader "Custom/Ocean"
                     waveDerivative.y += frequency * waveAmplitude * (exp(sin(d * frequency + _Time * phase)) - 1) * waveDirection.y * cos(d * frequency + _Time * phase);
                     frequency *= freq_mult;
                     waveAmplitude *= ampli_mult;
-                    //d = Noise(waveDirection.x) * position.xz + Noise(waveDirection.y) * position.xz;
                 }
 
                 
