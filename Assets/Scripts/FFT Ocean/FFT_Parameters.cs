@@ -19,5 +19,6 @@ public class FFT_Parameters : ScriptableObject
     public JONSWAP jonswap3 = new JONSWAP();
     public JONSWAP jonswap4 = new JONSWAP();
 
-    public int resolution = 256; // Resolution of the JONSWAP spectrum texture / Ocean textures
+    public int resolution = 256; // Resolution of the spectrum texture / Ocean textures
+    public int patchSize = 1000; // Size of the ocean patch in meters
 }

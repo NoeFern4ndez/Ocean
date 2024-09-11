@@ -28,6 +28,7 @@ public class FFT_Interface : EditorWindow
             EditorGUILayout.LabelField("General Settings", EditorStyles.boldLabel);
 
             EditorGUILayout.PropertyField(serializedParameters.FindProperty("resolution"));
+            EditorGUILayout.PropertyField(serializedParameters.FindProperty("patchSize"));
 
             EditorGUILayout.LabelField("4 Frequency Bands", EditorStyles.boldLabel);
 
