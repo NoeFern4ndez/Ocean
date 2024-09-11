@@ -20,6 +20,11 @@ Shader "Custom/FFT_Ocean"
         _EnviroIntensity ("Environment Intensity", Range(0.0,1.0)) = 0.5
 
         // Wave textures
+        _dispScale1 ("Displacement Scale 1", Float) = 1
+        _dispScale2 ("Displacement Scale 2", Float) = 1
+        _dispScale3 ("Displacement Scale 3", Float) = 1
+        _dispScale4 ("Displacement Scale 4", Float) = 1
+
         _fftTexture1 ("FFT Texture 1", 2D) = "" {}
         _fftTexture2 ("FFT Texture 2", 2D) = "" {}
         _fftTexture3 ("FFT Texture 3", 2D) = "" {}
@@ -68,6 +73,11 @@ Shader "Custom/FFT_Ocean"
             sampler2D _fftDerivative3;
             sampler2D _fftDerivative4;
 
+            float _dispScale1;
+            float _dispScale2;
+            float _dispScale3;
+            float _dispScale4;
+
 
             struct MeshData
             {
@@ -81,6 +91,9 @@ Shader "Custom/FFT_Ocean"
                 float4 vertex : SV_POSITION;
                 float3 normal : TEXCOORD1;
                 float2 uv : TEXCOORD0;
+                float vFresnel : TEXCOORD2;
+                float vReflect : TEXCOORD3;
+                float vRefract : TEXCOORD4;
             };
 
             /* Iluminación Phong */
@@ -97,7 +110,7 @@ Shader "Custom/FFT_Ocean"
 
                 /* Specular */
                 float3 reflectDir = reflect(-lightDir, normal);
-                float spec = pow(max(0, dot(viewDir, reflectDir)), _Shininess);
+                float spec = pow(max(0, dot(viewDir, -reflectDir)), _Shininess);
                 float3 specular = _Specular.rgb * spec * _Intensity;
 
                 /* Scatter  
@@ -141,34 +154,41 @@ Shader "Custom/FFT_Ocean"
                 return reflect(ecView, ecNormal);
             }
 
+            //  Complex multiplication: (a + bi) * (c + di) = (ac - bd) + (ad + bc)i
+            float2 ComplexMult(float2 a, float2 b) 
+            {
+                return float2(a.x * b.x - a.y * b.y, a.x * b.y + a.y * b.x);
+            }
+
+            // Euler's formula: e^(i * phase) = cos(phase) + i * sin(phase)
+            float2 EulerFormula(float phase) 
+            {
+                return float2(cos(phase), sin(phase));
+            }
 
             v2f vert(MeshData IN)
             {
                 v2f OUT;
-
                 float4 position = IN.vertex;
                 float3 normal = IN.normal;
+           
+                   
+                float4 displacement = tex2Dlod(_fftTexture1, float4(IN.uv, 0, 0)) * _dispScale1;
+                displacement += tex2Dlod(_fftTexture2, float4(IN.uv, 0, 0)) * _dispScale2;
+                displacement += tex2Dlod(_fftTexture3, float4(IN.uv, 0, 0)) * _dispScale3;
+                displacement += tex2Dlod(_fftTexture4, float4(IN.uv, 0, 0)) * _dispScale4;
+                position.y += displacement.x;
 
-                // // Altura de la ola
-                // float2 derivative = float2(0, 0);
+                // Fresnel y direcciones de reflexión/refracción
+                float3 ecNormal = normalize(UnityObjectToWorldNormal(normal));
+                float3 ecView = mul(unity_ObjectToWorld, IN.vertex).xyz - _WorldSpaceCameraPos;
+                OUT.vFresnel = CalculateFresnel(ecView, ecNormal);
+                OUT.vReflect = CalculateReflectDirection(ecView, ecNormal);
+                OUT.vRefract = CalculateRefractDirection(ecView, ecNormal);
 
-                // position += tex2Dlod (_fftTexture1, position);
-                // position += tex2Dlod (_fftTexture2, position);
-                // position += tex2Dlod (_fftTexture3, position);
-                // position += tex2Dlod (_fftTexture4, position);
-                // derivative += tex2Dlod (_fftDerivative1, position);
-                // derivative += tex2Dlod (_fftDerivative2, position);
-                // derivative += tex2Dlod (_fftDerivative3, position);
-                // derivative += tex2Dlod (_fftDerivative4, position);
-
-
-                // // nueva normal tras el desplazamiento de la ola
-                // float3 tangent = normalize(float3(1, 0, derivative.x));
-                // float3 binormal = normalize(float3(0, 1, derivative.y));
-                // normal = normalize(cross(tangent, binormal));
-
+                //OUT.vertex = UnityObjectToClipPos(position);
                 OUT.vertex = UnityObjectToClipPos(position);
-                OUT.normal = normal;
+                OUT.normal = ecNormal;
                 OUT.uv = IN.uv;
 
                 return OUT;
@@ -176,16 +196,8 @@ Shader "Custom/FFT_Ocean"
 
             half4 frag(v2f IN) : SV_Target
             {
-                float3 normal = normalize(IN.normal);
-                // Fresnel y direcciones de reflexión/refracción
-                float3 ecNormal = normalize(UnityObjectToWorldNormal(normal));
-                float3 ecView = mul(unity_ObjectToWorld, IN.vertex).xyz - _WorldSpaceCameraPos;
-                float vFresnel = CalculateFresnel(ecView, ecNormal);
-                float vReflect = CalculateReflectDirection(ecView, ecNormal);
-                float vRefract = CalculateRefractDirection(ecView, ecNormal);
-
-                half4 fresnelColor = lerp(texCUBE(_EnviroTexCube, vRefract), texCUBE(_EnviroTexCube, vReflect), vFresnel);
-                half4 Phong = CalculatePhongLight(normal, normalize(vRefract - _WorldSpaceCameraPos), IN.uv, IN.vertex.xyz);
+                half4 fresnelColor = lerp(texCUBE(_EnviroTexCube, IN.vRefract), texCUBE(_EnviroTexCube, IN.vReflect), IN.vFresnel);
+                half4 Phong = CalculatePhongLight(IN.normal, normalize(IN.vRefract - _WorldSpaceCameraPos), IN.uv, IN.vertex.xyz);
                 
                 return Phong + fresnelColor * _EnviroIntensity;
             }

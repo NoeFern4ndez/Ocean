@@ -107,7 +107,6 @@ Shader "Custom/Initial_Spectrum"
                 return beta / (2 * tanh(beta * PI)) * sech * sech;
             }
 
-            // Vertex Shader: Maintains UVs and vertex position
             v2f vert(MeshData IN)
             {
                 v2f OUT;
@@ -118,13 +117,12 @@ Shader "Custom/Initial_Spectrum"
             
             /*
                 h0 = 1/sqrt(2) * (Xr + iXi) * sqrt(2* S(w) * D(theta, w) * dw(k)/dk * 1/k * Δkx * Δkz)
-                h0* = h0.x, -h0.y
+                h0*= h0.x, -h0.y
                 output: (h0.x, h0.y, h0*.x, h0*.y)
             */
             half4 frag(v2f IN) : SV_Target
             {
                 float2 uv = IN.uv;
-                float2 center = float2(0.5, 0.5); 
 
                 // k(kx, kz) = (2πn/L) where -N/2 <= n <= N/2
                 float deltaK = 2 * PI / _L;
@@ -138,8 +136,7 @@ Shader "Custom/Initial_Spectrum"
                 // dw(k)/dk = sqrt(g * tanh(|k| * d)) * (1 + |k| / (1 + |k| * d)) / (2 * |k|)
                 float wder = _g * (_depth * kmag / (cos(kmag * _depth) * cos(kmag * _depth)) + 1) / (2 * w);
 
-                // D(theta, w): Donelan-Banner directional spreading. Ref: ref: https://dl.acm.org/doi/pdf/10.1145/2791261.2791267
-                // theta: angle of waves relative to wave direction
+                // D(theta, w): Donelan-Banner directional spreading. Ref: https://dl.acm.org/doi/pdf/10.1145/2791261.2791267
                 float kangle = atan2(k.y, k.x);
                 float theta = kangle - _angle * PI / 180; 
                 float D = DonelanBanner(theta, w, _wp);
@@ -154,7 +151,7 @@ Shader "Custom/Initial_Spectrum"
 
                 // (h0, h0*)
                 float2 h0 = 1 / sqrt(2) * float2(Xr, Xi) * sqrt(2 * S * D * abs(wder) / kmag * deltaK * deltaK);
-                float2 h0Conjugate = float2(h0.x, -h0.y);
+                float2 h0Conjugate = float2(-h0.x, -h0.y);
 
                 return half4(h0.x, h0.y, h0Conjugate.x, h0Conjugate.y);
             }

@@ -121,7 +121,7 @@ Shader "Custom/Ocean"
 
                 /* Specular */
                 float3 reflectDir = reflect(-lightDir, normal);
-                float spec = pow(max(0, dot(viewDir, reflectDir)), _Shininess);
+                float spec = pow(max(0, dot(viewDir, -reflectDir)), _Shininess);
                 float3 specular = _Specular.rgb * spec * _Intensity;
 
                 /* Scatter  

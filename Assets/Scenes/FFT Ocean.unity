@@ -183,7 +183,7 @@ MonoBehaviour:
   renderOcean: {fileID: 4800000, guid: 53560bcc839b8584d9fd2a4902526a87, type: 3}
   advanceOcean: {fileID: 4800000, guid: bd7ae31de38ba5943b82fae98e769adf, type: 3}
   computeFFT: {fileID: 7200000, guid: 7924886ba347733438cb333ed321cbc6, type: 3}
-  renderMaterial: {fileID: 2100000, guid: 1d8ec3e5fe2687345a17d839e76ae2c1, type: 2}
+  renderMaterial: {fileID: 2100000, guid: 530b03e41584aab43adcb4741b9bc934, type: 2}
 --- !u!23 &897208872
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -261,8 +261,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3913a1ede1420e4b948180016d66c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: 10
-  resolution: 5
+  size: 128
+  resolution: 128
 --- !u!1 &1952909600
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,13 +349,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1952909600}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: 0.45737377, y: -0, z: -0, w: 0.88927454}
+  m_LocalPosition: {x: 0, y: 6.8, z: -5.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 54.436, y: 0, z: 0}
 --- !u!114 &1952909604
 MonoBehaviour:
   m_ObjectHideFlags: 0
