@@ -5,7 +5,7 @@ using UnityEngine;
 public class FFT_Ocean : MonoBehaviour
 {
     public FFT_Parameters param;
-    public Shader genJONSWAP, renderOcean, advanceOcean;
+    public Shader genJONSWAP, renderOcean, advanceOcean, dftShader;
     public ComputeShader computeFFT;
 
     public Material renderMaterial;
@@ -13,6 +13,7 @@ public class FFT_Ocean : MonoBehaviour
     private RenderTexture[] jonswapTextures;
     private RenderTexture[] timeSpecTextures;
     private RenderTexture oceanTex;
+    private RenderTexture[] dftTextures;
     private RenderTexture[] fftTextures;
     private RenderTexture[] fftDerivTextures;
 
@@ -23,6 +24,7 @@ public class FFT_Ocean : MonoBehaviour
     private Material[] jonswapMaterials;
     private Material[] timeSpecMaterials;
     private Material renderOceanMat;
+    private Material[] dftMaterials;
     private Material[] fftMaterials;
     private Material[] fftDerivMaterials;
 
@@ -36,9 +38,11 @@ public class FFT_Ocean : MonoBehaviour
         jonswapTextures = new RenderTexture[4];
         timeSpecTextures = new RenderTexture[4];
         fftTextures = new RenderTexture[4];
+        dftTextures = new RenderTexture[4];
         fftDerivTextures = new RenderTexture[4];
         jonswapMaterials = new Material[4];
         timeSpecMaterials = new Material[4];
+        dftMaterials = new Material[4];
         fftMaterials = new Material[4];
         fftDerivMaterials = new Material[4];
 
@@ -51,15 +55,18 @@ public class FFT_Ocean : MonoBehaviour
         {
             jonswapTextures[i] = createRenderTexture(size);
             timeSpecTextures[i] = createRenderTexture(size);
+            dftTextures[i] = createRenderTexture(size);
             fftTextures[i] = createRenderTexture(size);
             fftDerivTextures[i] = createRenderTexture(size);
 
             ClearRenderTexture(jonswapTextures[i]);
             ClearRenderTexture(timeSpecTextures[i]);
+            ClearRenderTexture(dftTextures[i]);
             ClearRenderTexture(fftTextures[i]);
             ClearRenderTexture(fftDerivTextures[i]);
 
             jonswapMaterials[i] = new Material(genJONSWAP);
+            dftMaterials[i] = new Material(dftShader);
             timeSpecMaterials[i] = new Material(advanceOcean);
         }
 
@@ -88,7 +95,7 @@ public class FFT_Ocean : MonoBehaviour
     void Update()
     {
         // Perform time stepping on the ocean textures
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 1; i++)
         {
             timeSpecMaterials[i].SetTexture("_h0", jonswapTextures[i]);
             timeSpecMaterials[i].SetFloat("_N", size);
@@ -98,13 +105,21 @@ public class FFT_Ocean : MonoBehaviour
             Graphics.Blit(null, timeSpecTextures[i], timeSpecMaterials[i]);
         }
 
+        for (int i = 0; i < 1; i++)
+        {
+            dftMaterials[i].SetTexture("_h", timeSpecTextures[i]);
+            dftMaterials[i].SetFloat("_N", size);
+            dftMaterials[i].SetFloat("_L", param.patchSize);
+            Graphics.Blit(null, dftTextures[i], dftMaterials[i]);
+        }
+
         // // Perform FFT on the spectrum textures
         // for (int i = 0; i < 4; i++)
         // {
         //     PerformFFT(timeSpecTextures[i], fftTextures[i]);
         // }
 
-        GetComponent<Renderer>().material.mainTexture = timeSpecTextures[0];
+        GetComponent<Renderer>().material.mainTexture = dftTextures[0];
 
         // for (int i = 0; i < 4; i++)
         // {

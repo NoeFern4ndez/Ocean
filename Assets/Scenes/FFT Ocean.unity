@@ -182,6 +182,7 @@ MonoBehaviour:
   genJONSWAP: {fileID: 4800000, guid: 483282f3d41f2bf45859f8153de1d182, type: 3}
   renderOcean: {fileID: 4800000, guid: 53560bcc839b8584d9fd2a4902526a87, type: 3}
   advanceOcean: {fileID: 4800000, guid: bd7ae31de38ba5943b82fae98e769adf, type: 3}
+  dftShader: {fileID: 4800000, guid: 49852289531934d42bcefe7e4873004d, type: 3}
   computeFFT: {fileID: 7200000, guid: 7924886ba347733438cb333ed321cbc6, type: 3}
   renderMaterial: {fileID: 2100000, guid: 530b03e41584aab43adcb4741b9bc934, type: 2}
 --- !u!23 &897208872

@@ -20,7 +20,7 @@ MonoBehaviour:
   inkDissipation: 0.99
   velViscosity: 1
   inkViscosity: 0.00002
-  inkColor: {r: 0.509434, g: 0.2357381, b: 0, a: 1}
+  inkColor: {r: 0.41509432, g: 0.41509432, b: 0.41509432, a: 1}
   applyVorticity: 0
   boundaryConditions: 0
   vorticityFactor: 25.63
