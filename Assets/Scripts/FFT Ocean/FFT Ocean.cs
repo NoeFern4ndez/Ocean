@@ -126,11 +126,11 @@ public class FFT_Ocean : MonoBehaviour
         //     PerformFFT(fftTextures[i], fftDerivTextures[i]);
         // }
 
-        // // Set the render texture parameters
-        // setRenderTexture();
+        // Set the render texture parameters
+        setRenderTexture();
 
-        // // Set the object's material to the ocean material
-        // GetComponent<Renderer>().material = renderOceanMat;
+        // Set the object's material to the ocean material
+        GetComponent<Renderer>().material = renderOceanMat;
     }
 
     void ClearRenderTexture(RenderTexture rt)
@@ -232,14 +232,15 @@ public class FFT_Ocean : MonoBehaviour
         // renderOceanMat.SetTexture("_fftTexture2", fftTextures[1]);
         // renderOceanMat.SetTexture("_fftTexture3", fftTextures[2]);
         // renderOceanMat.SetTexture("_fftTexture4", fftTextures[3]);
-        renderOceanMat.SetTexture("_fftTexture1", timeSpecTextures[0]);
-        renderOceanMat.SetTexture("_fftTexture2", timeSpecTextures[1]);
-        renderOceanMat.SetTexture("_fftTexture3", timeSpecTextures[2]);
-        renderOceanMat.SetTexture("_fftTexture4", timeSpecTextures[3]);
+        renderOceanMat.SetTexture("_fftTexture1", dftTextures[0]);
+        // renderOceanMat.SetTexture("_fftTexture2", dftTextures[1]);
+        // renderOceanMat.SetTexture("_fftTexture3", dftTextures[2]);
+        // renderOceanMat.SetTexture("_fftTexture4", dftTextures[3]);
 
-        renderOceanMat.SetTexture("_fftDerivative1", fftDerivTextures[0]);
-        renderOceanMat.SetTexture("_fftDerivative2", fftDerivTextures[1]);
-        renderOceanMat.SetTexture("_fftDerivative3", fftDerivTextures[2]);
-        renderOceanMat.SetTexture("_fftDerivative4", fftDerivTextures[3]);
+
+        // renderOceanMat.SetTexture("_fftDerivative1", fftDerivTextures[0]);
+        // renderOceanMat.SetTexture("_fftDerivative2", fftDerivTextures[1]);
+        // renderOceanMat.SetTexture("_fftDerivative3", fftDerivTextures[2]);
+        // renderOceanMat.SetTexture("_fftDerivative4", fftDerivTextures[3]);
     }
 }

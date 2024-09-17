@@ -174,10 +174,10 @@ Shader "Custom/FFT_Ocean"
            
                    
                 float4 displacement = tex2Dlod(_fftTexture1, float4(IN.uv, 0, 0)) * _dispScale1;
-                displacement += tex2Dlod(_fftTexture2, float4(IN.uv, 0, 0)) * _dispScale2;
-                displacement += tex2Dlod(_fftTexture3, float4(IN.uv, 0, 0)) * _dispScale3;
-                displacement += tex2Dlod(_fftTexture4, float4(IN.uv, 0, 0)) * _dispScale4;
-                position.y += displacement.x;
+                // displacement += tex2Dlod(_fftTexture2, float4(IN.uv, 0, 0)) * _dispScale2;
+                // displacement += tex2Dlod(_fftTexture3, float4(IN.uv, 0, 0)) * _dispScale3;
+                // displacement += tex2Dlod(_fftTexture4, float4(IN.uv, 0, 0)) * _dispScale4;
+                position.y += length(displacement.xy);
 
                 // Fresnel y direcciones de reflexión/refracción
                 float3 ecNormal = normalize(UnityObjectToWorldNormal(normal));

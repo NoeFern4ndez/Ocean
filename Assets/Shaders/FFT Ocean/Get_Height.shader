@@ -77,9 +77,13 @@ Shader "Custom/Get_Height"
                         float ix = i * _N - _N / 2;
                         float iz = j * _N - _N / 2;
                         float2 k = float2(ix * 2 * PI / _L, iz * 2 * PI / _L);
+                        normalize(k);
                         float2 h = tex2D(_h, k).xy;
                         float2 phase = dot(k, x);
-                        displacement.xy += ComplexMult(h, EulerFormula(phase));
+                        if(h.x > 0 || h.y > 0)
+                        {
+                            displacement.xy += ComplexMult(h, EulerFormula(phase));
+                        }
                     }
                 }
 
