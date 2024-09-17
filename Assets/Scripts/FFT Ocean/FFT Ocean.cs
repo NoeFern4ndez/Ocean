@@ -95,7 +95,7 @@ public class FFT_Ocean : MonoBehaviour
     void Update()
     {
         // Perform time stepping on the ocean textures
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i < 4; i++)
         {
             timeSpecMaterials[i].SetTexture("_h0", jonswapTextures[i]);
             timeSpecMaterials[i].SetFloat("_N", size);
@@ -105,32 +105,32 @@ public class FFT_Ocean : MonoBehaviour
             Graphics.Blit(null, timeSpecTextures[i], timeSpecMaterials[i]);
         }
 
-        for (int i = 0; i < 1; i++)
+        // for (int i = 0; i < 4; i++)
+        // {
+        //     dftMaterials[i].SetTexture("_h", timeSpecTextures[i]);
+        //     dftMaterials[i].SetFloat("_N", size);
+        //     dftMaterials[i].SetFloat("_L", param.patchSize);
+        //     Graphics.Blit(null, dftTextures[i], dftMaterials[i]);
+        // }
+
+        // Perform FFT on the spectrum textures
+        for (int i = 0; i < 4; i++)
         {
-            dftMaterials[i].SetTexture("_h", timeSpecTextures[i]);
-            dftMaterials[i].SetFloat("_N", size);
-            dftMaterials[i].SetFloat("_L", param.patchSize);
-            Graphics.Blit(null, dftTextures[i], dftMaterials[i]);
+            PerformFFT(timeSpecTextures[i], fftTextures[i]);
         }
 
-        // // Perform FFT on the spectrum textures
-        // for (int i = 0; i < 4; i++)
-        // {
-        //     PerformFFT(timeSpecTextures[i], fftTextures[i]);
-        // }
+        GetComponent<Renderer>().material.mainTexture = timeSpecTextures[0];
 
-        GetComponent<Renderer>().material.mainTexture = dftTextures[0];
-
-        // for (int i = 0; i < 4; i++)
-        // {
-        //     PerformFFT(fftTextures[i], fftDerivTextures[i]);
-        // }
+        for (int i = 0; i < 4; i++)
+        {
+            PerformFFT(fftTextures[i], fftDerivTextures[i]);
+        }
 
         // Set the render texture parameters
         setRenderTexture();
 
-        // Set the object's material to the ocean material
-        GetComponent<Renderer>().material = renderOceanMat;
+        // // Set the object's material to the ocean material
+        // GetComponent<Renderer>().material = renderOceanMat;
     }
 
     void ClearRenderTexture(RenderTexture rt)
@@ -228,19 +228,20 @@ public class FFT_Ocean : MonoBehaviour
 
     void setRenderTexture()
     {
-        // renderOceanMat.SetTexture("_fftTexture1", fftTextures[0]);
-        // renderOceanMat.SetTexture("_fftTexture2", fftTextures[1]);
-        // renderOceanMat.SetTexture("_fftTexture3", fftTextures[2]);
-        // renderOceanMat.SetTexture("_fftTexture4", fftTextures[3]);
-        renderOceanMat.SetTexture("_fftTexture1", dftTextures[0]);
+        renderOceanMat.SetTexture("_fftTexture1", fftTextures[0]);
+        renderOceanMat.SetTexture("_fftTexture2", fftTextures[1]);
+        renderOceanMat.SetTexture("_fftTexture3", fftTextures[2]);
+        renderOceanMat.SetTexture("_fftTexture4", fftTextures[3]);
+        
+        // renderOceanMat.SetTexture("_fftTexture1", dftTextures[0]);
         // renderOceanMat.SetTexture("_fftTexture2", dftTextures[1]);
         // renderOceanMat.SetTexture("_fftTexture3", dftTextures[2]);
         // renderOceanMat.SetTexture("_fftTexture4", dftTextures[3]);
 
 
-        // renderOceanMat.SetTexture("_fftDerivative1", fftDerivTextures[0]);
-        // renderOceanMat.SetTexture("_fftDerivative2", fftDerivTextures[1]);
-        // renderOceanMat.SetTexture("_fftDerivative3", fftDerivTextures[2]);
-        // renderOceanMat.SetTexture("_fftDerivative4", fftDerivTextures[3]);
+        renderOceanMat.SetTexture("_fftDerivative1", fftDerivTextures[0]);
+        renderOceanMat.SetTexture("_fftDerivative2", fftDerivTextures[1]);
+        renderOceanMat.SetTexture("_fftDerivative3", fftDerivTextures[2]);
+        renderOceanMat.SetTexture("_fftDerivative4", fftDerivTextures[3]);
     }
 }

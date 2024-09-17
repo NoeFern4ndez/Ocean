@@ -151,7 +151,7 @@ Shader "Custom/Initial_Spectrum"
 
                 // (h0, h0*)
                 float2 h0 = 1 / sqrt(2) * float2(Xr, Xi) * sqrt(2 * S * D * abs(wder) / kmag * deltaK * deltaK);
-                float2 h0Conjugate = float2(-h0.x, -h0.y);
+                float2 h0Conjugate = float2(h0.x, -h0.y);
 
                 return half4(h0.x, h0.y, h0Conjugate.x, h0Conjugate.y);
             }

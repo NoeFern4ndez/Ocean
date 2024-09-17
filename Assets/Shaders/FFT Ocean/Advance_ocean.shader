@@ -88,7 +88,7 @@ Shader "Custom/Advance_ocean"
 
                 // exp(i * phase) and exp(-i * phase)
                 float2 eip = EulerFormula(phase);
-                float2 einp = float2(-eip.x, -eip.y);
+                float2 einp = float2(eip.x, -eip.y);
 
                 // h(k, t) = h0(k) * e^(i * ω(k) * t) + h0*(-k) * e^(-i * ω(k) * t)
                 float2 h = ComplexMult(h0, eip) + ComplexMult(h0conj, einp);
