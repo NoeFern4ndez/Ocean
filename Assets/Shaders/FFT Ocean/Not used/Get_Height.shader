@@ -42,10 +42,10 @@ Shader "Custom/Get_Height"
                 return float2(a.x * b.x - a.y * b.y, a.x * b.y + a.y * b.x);
             }
 
-            // Euler's formula: e^(i * phase) = cos(phase) + i * sin(phase)
-            float2 EulerFormula(float phase) 
+            // Euler's formula: e^(i * phase) = cos(phase.r) + i * sin(phase.i)
+            float2 EulerFormula(float2 phase) 
             {
-                return float2(cos(phase), sin(phase));
+                return float2(cos(phase.y), sin(phase.y)) * exp(phase.x);
             }
 
             // Vertex Shader: Maintains UVs and vertex position

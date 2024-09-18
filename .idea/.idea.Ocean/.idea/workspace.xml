@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="7d2aff84-ab7b-4e75-94f9-51d85ab96033" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/FFT Ocean/FFT_debug.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/FFT Ocean/FFT_debug.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Ocean/Ocean_2.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Ocean/Ocean_2.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/FFT Ocean/FFT Ocean.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/FFT Ocean/FFT Ocean.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/FFT Ocean/FFT_Parameters.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/FFT Ocean/FFT_Parameters.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Shaders/FFT Ocean/Advance_ocean.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Shaders/FFT Ocean/Advance_ocean.shader" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Shaders/FFT Ocean/FFT_Ocean.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Shaders/FFT Ocean/FFT_Ocean.shader" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Shaders/FFT Ocean/Get_Height.shader" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Shaders/FFT Ocean/Get_Height.shader.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Shaders/FFT Ocean/Initial_Spectrum.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Shaders/FFT Ocean/Initial_Spectrum.shader" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Shaders/FFT Ocean/JONSWAP.shader" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Shaders/FFT Ocean/JONSWAP.shader.meta" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 0
+}]]></component>
+  <component name="ProjectId" id="2mFcfkwdmpNXaXPqBZNyXvC1UB7" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7d2aff84-ab7b-4e75-94f9-51d85ab96033" name="Changes" comment="" />
+      <created>1726675889355</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1726675889355</updated>
+      <workItem from="1726675909499" duration="30000" />
+    </task>
+    <servers />
+  </component>
+  <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
+  <component name="UnityProjectDiscoverer">
+    <option name="unityProject" value="true" />
+    <option name="unityProjectFolder" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="false" />
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+</project>

@@ -46,7 +46,7 @@ public class FFT_Ocean : MonoBehaviour
         fftMaterials = new Material[4];
         fftDerivMaterials = new Material[4];
 
-        fftPrecomputeBuffer = createRenderTexture(size);
+        fftPrecomputeBuffer = createFFTPrecomputeTexture();
         fftPingPongBuffer0 = createRenderTexture(size);
         fftPingPongBuffer1 = createRenderTexture(size);
 
@@ -119,15 +119,15 @@ public class FFT_Ocean : MonoBehaviour
             PerformFFT(timeSpecTextures[i], fftTextures[i]);
         }
 
-        GetComponent<Renderer>().material.mainTexture = timeSpecTextures[0];
+        //GetComponent<Renderer>().material.mainTexture = timeSpecTextures[0];
 
-        for (int i = 0; i < 4; i++)
-        {
-            PerformFFT(fftTextures[i], fftDerivTextures[i]);
-        }
+        // for (int i = 0; i < 4; i++)
+        // {
+        //     PerformFFT(fftTextures[i], fftDerivTextures[i]);
+        // }
 
-        // Set the render texture parameters
-        setRenderTexture();
+        // // Set the render texture parameters
+        // setRenderTexture();
 
         // // Set the object's material to the ocean material
         // GetComponent<Renderer>().material = renderOceanMat;
@@ -142,16 +142,31 @@ public class FFT_Ocean : MonoBehaviour
 
     RenderTexture createRenderTexture(int resolution)
     {
-        RenderTexture renderTexture = new RenderTexture(resolution, resolution, 0, RenderTextureFormat.ARGBHalf);
+        RenderTexture renderTexture = new RenderTexture(resolution, resolution, 0, RenderTextureFormat.ARGBHalf, RenderTextureReadWrite.Linear);
         renderTexture.enableRandomWrite = true; 
         renderTexture.filterMode = FilterMode.Bilinear;
         renderTexture.wrapMode = TextureWrapMode.Repeat;
+        renderTexture.anisoLevel = 9;
         renderTexture.Create();
+        return renderTexture;
+    }
+
+    RenderTexture createFFTPrecomputeTexture()
+    {
+        int logSize = (int)Mathf.Log(size, 2);
+        RenderTexture renderTexture = new RenderTexture(logSize, size, 0, RenderTextureFormat.ARGBFloat, RenderTextureReadWrite.Linear);
+        renderTexture.filterMode = FilterMode.Point;
+        renderTexture.wrapMode = TextureWrapMode.Repeat;
+        renderTexture.enableRandomWrite = true;
+        renderTexture.Create();
+
         return renderTexture;
     }
 
     void PerformFFT(RenderTexture input, RenderTexture output)
     {
+        int logSize = (int)Mathf.Log(size, 2);
+
         int precomputeKernel = computeFFT.FindKernel("PrecomputeTwiddleFactorsAndInputIndices");
         int horizontalStepKernel = computeFFT.FindKernel("HorizontalStepFFT");
         int verticalStepKernel = computeFFT.FindKernel("VerticalStepFFT");
@@ -160,7 +175,10 @@ public class FFT_Ocean : MonoBehaviour
         // Precompute twiddle factors and indices
         computeFFT.SetTexture(precomputeKernel, "PrecomputeBuffer", fftPrecomputeBuffer);
         computeFFT.SetInt("Size", size);
-        computeFFT.Dispatch(precomputeKernel, size / 8, size / 8, 1);
+        computeFFT.Dispatch(precomputeKernel, logSize, size / 8, 1);
+
+        // view the precompute buffer
+        GetComponent<Renderer>().material.mainTexture = fftPrecomputeBuffer;
 
         // Horizontal FFT step
         computeFFT.SetTexture(horizontalStepKernel, "PrecomputedData", fftPrecomputeBuffer);
@@ -168,7 +186,7 @@ public class FFT_Ocean : MonoBehaviour
         computeFFT.SetTexture(horizontalStepKernel, "Buffer1", fftPingPongBuffer1);
         computeFFT.SetBool("PingPong", true);
 
-        for (int step = 0; step < Mathf.Log(size, 2); step++)
+        for (int step = 0; step < logSize; step++)
         {
             computeFFT.SetInt("Step", step);
             computeFFT.Dispatch(horizontalStepKernel, size / 8, size / 8, 1);
@@ -190,7 +208,7 @@ public class FFT_Ocean : MonoBehaviour
             SwapBuffers();
         }
 
-        // Scale the output
+        // // Scale the output
         computeFFT.SetTexture(scaleKernel, "Buffer0", output);
         computeFFT.Dispatch(scaleKernel, size / 8, size / 8, 1);
     }

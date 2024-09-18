@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FFT_Parameters
   m_EditorClassIdentifier: 
   jonswap1:
-    windSpeed: 32
+    windSpeed: 34.01
     windDirection: 186
     windFetch: 1000
     oceanDepth: 1000
@@ -33,4 +33,4 @@ MonoBehaviour:
     windFetch: 800
     oceanDepth: 1000
   resolution: 256
-  patchSize: 1200
+  patchSize: 1000

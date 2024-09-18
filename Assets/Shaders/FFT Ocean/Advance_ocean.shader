@@ -47,10 +47,10 @@ Shader "Custom/Advance_ocean"
                 return float2(a.x * b.x - a.y * b.y, a.x * b.y + a.y * b.x);
             }
 
-            // Euler's formula: e^(i * phase) = cos(phase) + i * sin(phase)
-            float2 EulerFormula(float phase) 
+            // Euler's formula: e^(i * phase) = cos(phase.r) + i * sin(phase.i)
+            float2 EulerFormula(float2 phase) 
             {
-                return float2(cos(phase), sin(phase));
+                return float2(cos(phase.y), sin(phase.y)) * exp(phase.x);
             }
 
             // Vertex Shader: Maintains UVs and vertex position
@@ -81,13 +81,13 @@ Shader "Custom/Advance_ocean"
                 float kmag = length(k);
 
                 // w(k) = sqrt(g * |k| * tanh(|k| * d))
-                float w = sqrt(_g * kmag);// * tanh(kmag * _depth));
+                float w = sqrt(_g * kmag); // * tanh(kmag * _depth));
 
                 // phase = ω(k) * t
                 float phase = w * _Time.y;
 
                 // exp(i * phase) and exp(-i * phase)
-                float2 eip = EulerFormula(phase);
+                float2 eip = EulerFormula(float2(0, phase));
                 float2 einp = float2(eip.x, -eip.y);
 
                 // h(k, t) = h0(k) * e^(i * ω(k) * t) + h0*(-k) * e^(-i * ω(k) * t)

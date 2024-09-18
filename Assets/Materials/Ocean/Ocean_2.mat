@@ -115,7 +115,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
-    - _EnviroIntensity: 0.24
+    - _EnviroIntensity: 0.22
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
@@ -142,12 +142,12 @@ Material:
     - _UseRoughnessMap: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
-    - _refractRatio: 1.16
-    - _subWaves: 8
+    - _refractRatio: 2.6
+    - _subWaves: 10
     - _waveAmplitude: 0.75
-    - _waveAmplitude2: 1.58
-    - _waveAmplitude3: 1.05
-    - _waveAmplitude4: 1.19
+    - _waveAmplitude2: 3.69
+    - _waveAmplitude3: 0.41
+    - _waveAmplitude4: 1.85
     - _waveFrequency: 0.04
     - _waveFrequency2: 0.07
     - _waveFrequency3: 0.1
@@ -177,5 +177,5 @@ Material:
     - _waveDirection: {r: 0.36, g: 0.5, b: 1, a: 1}
     - _waveDirection2: {r: -0.54, g: 0.36, b: 1, a: 1}
     - _waveDirection3: {r: 0.3, g: 3.35, b: 1, a: 1}
-    - _waveDirection4: {r: 3.19, g: -1.93, b: 1, a: 1}
+    - _waveDirection4: {r: 5.8, g: -1.93, b: 1, a: 1}
   m_BuildTextureStacks: []
